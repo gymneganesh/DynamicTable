@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "lodash": "^4.13.1",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "DefinitelyTyped": "*"
   }
 }

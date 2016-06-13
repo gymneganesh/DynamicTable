@@ -1,47 +1,38 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        copy: {
-            copyOp: {
-                cwd: 'src',
-                src: ['**'],
-                dest: 'build',
-                expand: true
-            },
-        },
-        clean: {
-            cleanOp: {
-                src: ['build']
-            }
-        },
-        uglify: {
-            build: {
-                options: {
-                    mangle: false
-                },
-                files: {
-                    'build/application.js': ['build/**/*.js']
-                }
-            }
-        },
+
         connect: {
             server: {
                 options: {
                     port: 8000,
-                    base:'.',
+                    base: './',
                     hostname: '*',
-                    open:true,
-                    keepalive:true
+                    keepalive: true
+
                 }
+            }
+        },
+        open: {
+            dev: {
+                path: 'http://localhost:8000/index.html'
+            }
+        },
+        ts: {
+            dev: {
+                src: ['app/**/*.ts'],
+                reference: './app/reference.ts',
+                out: './app/out.js'
             }
         }
     });
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-ts');
 
 
-    grunt.registerTask('build', ['clean', 'copy']);
-    grunt.registerTask('default', ['build', 'connect'])
+
+    grunt.registerTask('build', ['ts', 'open', 'connect']);
+    grunt.registerTask('default', ['build'])
 
 }
