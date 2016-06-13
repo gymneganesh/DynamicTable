@@ -3,8 +3,8 @@
 module MyApp {
         export class TableController {
             private name:string;
-            constructor(private $scope :any){
-                this.name = "Navaneethaha";
+            constructor(private $scope :any, service :TableService){
+                this.name = service.getServiceName();
             }
         }
 }

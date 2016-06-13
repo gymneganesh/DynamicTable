@@ -1,9 +1,9 @@
 var MyApp;
 (function (MyApp) {
     var TableController = (function () {
-        function TableController($scope) {
+        function TableController($scope, service) {
             this.$scope = $scope;
-            this.name = "Navaneethaha";
+            this.name = service.getServiceName();
         }
         return TableController;
     }());
@@ -24,7 +24,21 @@ var MyApp;
 var MyApp;
 (function (MyApp) {
     var app = angular.module('MyApp', []);
-    app.controller('TableController', ['$scope', function ($scope) { return new MyApp.TableController($scope); }]);
+    app.service('TableService', [function () { return new MyApp.TableService(); }]);
+    app.controller('TableController', ['$scope', 'TableService', function ($scope, TableService) { return new MyApp.TableController($scope, TableService); }]);
     app.controller('TestController', ['$scope', function ($scope) { return new MyApp.TestController($scope); }]);
+})(MyApp || (MyApp = {}));
+var MyApp;
+(function (MyApp) {
+    var TableService = (function () {
+        function TableService() {
+            this.serviceName = "From Nav Service";
+        }
+        TableService.prototype.getServiceName = function () {
+            return this.serviceName;
+        };
+        return TableService;
+    }());
+    MyApp.TableService = TableService;
 })(MyApp || (MyApp = {}));
 //# sourceMappingURL=out.js.map
